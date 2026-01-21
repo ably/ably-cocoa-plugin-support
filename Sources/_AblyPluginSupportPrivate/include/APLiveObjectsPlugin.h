@@ -58,7 +58,7 @@ NS_SWIFT_SENDABLE
 - (NSDictionary<NSString *, id> *)encodeObjectMessage:(id<APObjectMessageProtocol>)objectMessage
                                                format:(APEncodingFormat)format;
 
-/// Called when a channel received an `ATTACHED` `ProtocolMessage`. (This is copied from ably-js, will document this method properly once exact meaning decided.)
+/// Called when a channel received an `ATTACHED` `ProtocolMessage`.
 ///
 /// Parameters:
 /// - channel: The channel that received the `ProtocolMessage`.
