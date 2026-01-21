@@ -60,6 +60,10 @@ NS_SWIFT_SENDABLE
 
 /// Called when a channel received an `ATTACHED` `ProtocolMessage`.
 ///
+/// Superseded by the optional `nosync_onChannelAttached:hasObjects:resumed:` method,
+/// which includes the `RESUMED` flag. If ably-cocoa detects that the plugin implements the
+/// newer method, it will call that instead of this one.
+///
 /// Parameters:
 /// - channel: The channel that received the `ProtocolMessage`.
 /// - hasObjects: Whether the `ProtocolMessage` has the `HAS_OBJECTS` flag set.
@@ -90,6 +94,22 @@ NS_SWIFT_SENDABLE
 /// - channel: The channel that should be informed about the connection details.
 - (void)nosync_onConnectedWithConnectionDetails:(nullable id<APConnectionDetailsProtocol>)connectionDetails
                                         channel:(id<APRealtimeChannel>)channel;
+
+@optional
+
+/// Called when a channel received an `ATTACHED` `ProtocolMessage`.
+///
+/// This method supersedes `nosync_onChannelAttached:hasObjects:` by including the `RESUMED` flag.
+/// If this method is implemented, ably-cocoa will call it instead of `nosync_onChannelAttached:hasObjects:`.
+///
+/// Parameters:
+/// - channel: The channel that received the `ProtocolMessage`.
+/// - hasObjects: Whether the `ProtocolMessage` has the `HAS_OBJECTS` flag set.
+/// - resumed: Whether the `ProtocolMessage` has the `RESUMED` flag set.
+- (void)nosync_onChannelAttached:(id<APRealtimeChannel>)channel
+                      hasObjects:(BOOL)hasObjects
+                         resumed:(BOOL)resumed
+  NS_SWIFT_NAME(nosync_onChannelAttached(_:hasObjects:resumed:));
 
 @end
 
