@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol APPublicClientOptions;
 @protocol APPublicRealtimeChannel;
 @protocol APPublicErrorInfo;
+@protocol APPublishResultProtocol;
 
 /// `APPluginAPIProtocol` provides a stable API for Ably-authored plugins to access certain private functionality of ably-cocoa.
 NS_SWIFT_NAME(PluginAPIProtocol)
@@ -79,6 +80,15 @@ NS_SWIFT_SENDABLE
 - (void)nosync_sendObjectWithObjectMessages:(NSArray<id<APObjectMessageProtocol>> *)objectMessages
                                     channel:(id<APRealtimeChannel>)channel
                                  completion:(void (^ _Nullable)(_Nullable id<APPublicErrorInfo> error))completion;
+
+@optional
+
+/// Same as `-nosync_sendObjectWithObjectMessages:channel:completion:`, but the completion handler additionally receives an `APPublishResultProtocol` containing the serials assigned to the published messages by the server.
+- (void)nosync_sendObjectWithObjectMessages:(NSArray<id<APObjectMessageProtocol>> *)objectMessages
+                                    channel:(id<APRealtimeChannel>)channel
+                       completionWithResult:(void (^ _Nullable)(_Nullable id<APPublishResultProtocol> publishResult, _Nullable id<APPublicErrorInfo> error))completion;
+
+@required
 
 /// Returns a realtime channel's current state.
 - (APRealtimeChannelState)nosync_stateForChannel:(id<APRealtimeChannel>)channel;
