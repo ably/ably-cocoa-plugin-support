@@ -31,6 +31,18 @@ NS_SWIFT_NAME(LiveObjectsInternalPluginProtocol)
 NS_SWIFT_SENDABLE
 @protocol APLiveObjectsInternalPluginProtocol <NSObject>
 
+/// Whether this plugin is compatible with protocol v6.
+///
+/// If this property returns `YES`, it indicates that this plugin can be used
+/// with a version of ably-cocoa which uses protocol v6, or which uses a
+/// protocol version higher than v6 whose breaking changes compared to v6 do
+/// not affect LiveObjects plugins.
+///
+/// This property **must** return `YES`. If you wish to introduce a protocol
+/// version change, see the "Breaking Realtime protocol version changes"
+/// section in the Readme.
+@property (nonatomic, readonly) BOOL compatibleWithProtocolV6;
+
 /// ably-cocoa will call this method when initializing an `ARTRealtimeChannel` instance.
 ///
 /// The plugin can use this as an opportunity to perform any initial setup of LiveObjects functionality for this channel.
