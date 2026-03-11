@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "APEncodingFormat.h"
+#import "APRealtimeChannelState.h"
 
 @protocol APLiveObjectsInternalPluginProtocol;
 @protocol APObjectMessageProtocol;
@@ -90,6 +91,19 @@ NS_SWIFT_SENDABLE
 /// - channel: The channel that should be informed about the connection details.
 - (void)nosync_onConnectedWithConnectionDetails:(nullable id<APConnectionDetailsProtocol>)connectionDetails
                                         channel:(id<APRealtimeChannel>)channel;
+
+@optional
+
+/// Called when the channel undergoes a state transition.
+///
+/// Parameters:
+/// - channel: The channel whose state changed.
+/// - state: The new channel state.
+/// - reason: The error reason associated with the state change, if any. Corresponds to `ARTRealtimeChannel.errorReason`.
+- (void)nosync_onChannelStateChanged:(id<APRealtimeChannel>)channel
+                             toState:(APRealtimeChannelState)state
+                              reason:(nullable id<APPublicErrorInfo>)reason
+  NS_SWIFT_NAME(nosync_onChannelStateChanged(_:toState:reason:));
 
 @end
 
