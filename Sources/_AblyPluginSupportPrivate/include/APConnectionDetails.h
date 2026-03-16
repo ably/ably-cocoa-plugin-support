@@ -10,12 +10,10 @@ NS_SWIFT_SENDABLE
 /// Wraps an `NSTimeInterval` containing the `objectsGCGracePeriod`, if any, in seconds.
 @property (nonatomic, readonly, nullable) NSNumber *objectsGCGracePeriod;
 
-@optional
-
 /// The site code of the server that the client is connected to (CD2j).
 ///
 /// May be absent if the server does not provide it.
-- (nullable NSString *)siteCode;
+@property (nonatomic, readonly, nullable) NSString *siteCode;
 
 @end
 
