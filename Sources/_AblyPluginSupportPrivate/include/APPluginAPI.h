@@ -18,6 +18,18 @@ NS_SWIFT_NAME(PluginAPIProtocol)
 NS_SWIFT_SENDABLE
 @protocol APPluginAPIProtocol
 
+/// Whether the SDK uses a protocol version which, as far as a LiveObjects
+/// plugin is concerned, is equivalent to protocol v6.
+///
+/// If the SDK uses a protocol version which is higher than 6 but whose
+/// breaking changes compared to v6 do not affect LiveObjects plugins, this
+/// property may still return `YES`.
+///
+/// This property **must** return `YES`. If you wish to introduce a protocol
+/// version change, see the "Breaking Realtime protocol version changes"
+/// section in the Readme.
+@property (nonatomic, readonly) BOOL usesLiveObjectsProtocolV6;
+
 /// Returns the internal objects that correspond to a public `ARTRealtimeChannel`.
 ///
 /// Plugins should, in general, not make use of `ARTRealtimeChannel` internally, and instead use `APRealtimeChannel`. This method is intended only to be used in plugin-authored extensions of `ARTRealtimeChannel`.
