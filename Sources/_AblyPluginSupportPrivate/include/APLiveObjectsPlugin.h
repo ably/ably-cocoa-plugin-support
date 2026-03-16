@@ -104,8 +104,6 @@ NS_SWIFT_SENDABLE
 - (void)nosync_onConnectedWithConnectionDetails:(nullable id<APConnectionDetailsProtocol>)connectionDetails
                                         channel:(id<APRealtimeChannel>)channel;
 
-@optional
-
 /// Called when the channel undergoes a state transition.
 ///
 /// Parameters:

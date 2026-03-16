@@ -82,7 +82,7 @@ NS_SWIFT_SENDABLE
 /// - If the channel's state is neither SUSPENDED nor FAILED then the message will be submitted to the connection for further checks per RTL6c1 and RTL6c2. Note that these checks may cause the connection to immediately reject the message per RTL6c4.
 /// - If the channel's state is SUSPENDED or FAILED then the callback will be called immediately with an error per RTL6c4.
 ///
-/// If the message ends up being sent on the transport then the completion handler will be called to indicate the result of waiting for an `ACK` or `NACK`, or when the connection gives up on trying to send the message.
+/// If the message ends up being sent on the transport then the completion handler will be called to indicate the result of waiting for an `ACK` or `NACK`, or when the connection gives up on trying to send the message. The completion handler receives an `APPublishResultProtocol` containing the serials assigned to the published messages by the server.
 ///
 /// The completion handler will be called on the client's internal queue (see `-internalQueueForClient:`).
 ///
@@ -91,16 +91,7 @@ NS_SWIFT_SENDABLE
 /// - Note: This method does not currently implement the RTO15d message size checks; this will come in https://github.com/ably/ably-liveobjects-swift-plugin/issues/13.
 - (void)nosync_sendObjectWithObjectMessages:(NSArray<id<APObjectMessageProtocol>> *)objectMessages
                                     channel:(id<APRealtimeChannel>)channel
-                                 completion:(void (^ _Nullable)(_Nullable id<APPublicErrorInfo> error))completion;
-
-@optional
-
-/// Same as `-nosync_sendObjectWithObjectMessages:channel:completion:`, but the completion handler additionally receives an `APPublishResultProtocol` containing the serials assigned to the published messages by the server.
-- (void)nosync_sendObjectWithObjectMessages:(NSArray<id<APObjectMessageProtocol>> *)objectMessages
-                                    channel:(id<APRealtimeChannel>)channel
-                       completionWithResult:(void (^ _Nullable)(_Nullable id<APPublishResultProtocol> publishResult, _Nullable id<APPublicErrorInfo> error))completion;
-
-@required
+                                 completion:(void (^ _Nullable)(_Nullable id<APPublishResultProtocol> publishResult, _Nullable id<APPublicErrorInfo> error))completion;
 
 /// Returns a realtime channel's current state.
 - (APRealtimeChannelState)nosync_stateForChannel:(id<APRealtimeChannel>)channel;
